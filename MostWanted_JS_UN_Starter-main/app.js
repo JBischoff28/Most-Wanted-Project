@@ -19,7 +19,7 @@ function app(people) {
     // promptFor() is a custom function defined below that helps us prompt and validate input more easily
     // Note that we are chaining the .toLowerCase() immediately after the promptFor returns its value
     let searchType = promptFor(
-        "Do you know the name of the person you are looking for? Enter 'yes' or 'no'",
+        "Do you know the name of the person you are looking for? Enter 'yes' or 'no' or 'show all'",
         yesNo
     ).toLowerCase();
     let searchResults;
@@ -32,6 +32,9 @@ function app(people) {
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
             searchResults = searchByTraits(people);
+            break;
+        case "show all":
+            searchResults = displayPeople(people);
             break;
         default:
             // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -170,7 +173,7 @@ function promptFor(question, valid) {
  * @returns {Boolean}           The result of our condition evaluation.
  */
 function yesNo(input) {
-    return input.toLowerCase() === "yes" || input.toLowerCase() === "no";
+    return input.toLowerCase() === "yes" || input.toLowerCase() === "no" || input.toLowerCase() === "show all";
 }
 // End of yesNo()
 
@@ -189,8 +192,9 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily (person, people) {
-    let personFamily = people.filter(function (person) {
-        if (person.lastName === people.lastName) {
+    let personFamily = people.filter(function (element) {
+        if (person.lastName === element.lastName && (element.firstName !== person.firstName) && (person.currentSpouse !== element.id) && 
+        (person.id !== element.parents[0] || person.id !== element.parents[1])) {
             return true;
         }
     });
