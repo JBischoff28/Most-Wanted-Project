@@ -195,8 +195,16 @@ function findPersonFamily (person, people) {
     let personFamily = people.filter(function (element) {
         if (person.lastName === element.lastName && (element.firstName !== person.firstName) && (person.currentSpouse !== element.id) && 
         (person.id !== element.parents[0] || person.id !== element.parents[1])) {
-            return true;
+            let isSibling = true;
+            return isSibling;
+        }
+        else if (person.currentSpouse === element.id) {
+            let isSpouse = true;
+            return isSpouse;
+        }
+        else if (person.parents[0] === element.id || person.parents[1] === element.id) {
+            let isParent = true;
+            return isParent;
         }
     });
-    return personFamily;
 }
