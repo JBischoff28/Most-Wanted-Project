@@ -71,14 +71,10 @@ function mainMenu(person, people) {
             alert(personInfo);
             break;
         case "family":
-            //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
-            // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
             alert(personFamily);
             break;
         case "descendants":
-            //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
-            // HINT: Review recursion lecture + demo for bonus user story
             let personDescendants = findPersonDescendants(person[0], people);
             alert(personDescendants);
             break;
@@ -198,22 +194,5 @@ function findPersonFamily (person, people) {
             return true;
         }
     });
-    return displayFamily (person[0], personFamily);
-}
-
-function displayFamily (person, people) {
-        
-    people.map(function (element) {
-        if (person.currentSpouse === element.id) {
-            return `Spouse: ${element.firstName} ${element.lastName}\n`;
-        }
-        else if (person.parents[0]) {
-            if (person.parents[0] === element.id || person.parents[1] === element.id) {
-                return `Parent: ${element.firstName} ${element.lastName}\n`;
-            }
-            else if (person.id !== element.id && element.parents.includes(person.parents[0])) {
-                return `Sibling: ${element.firstName} ${element.lastName}\n`;
-            }
-        }
-    });
+    return displayFamily (person, personFamily);
 }
