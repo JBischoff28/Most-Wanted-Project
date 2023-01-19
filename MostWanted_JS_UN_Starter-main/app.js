@@ -192,19 +192,28 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function findPersonFamily (person, people) {
+
     let personFamily = people.filter(function (element) {
-        if (person.lastName === element.lastName && (element.firstName !== person.firstName) && (person.currentSpouse !== element.id) && 
-        (person.id !== element.parents[0] || person.id !== element.parents[1])) {
-            let isSibling = true;
-            return isSibling;
+        if (person.lastName === element.lastName && person.firstName !== element.firstName) {
+            return true;
         }
-        else if (person.currentSpouse === element.id) {
-            let isSpouse = true;
-            return isSpouse;
+    });
+    return displayFamily (person[0], personFamily);
+}
+
+function displayFamily (person, people) {
+        
+    people.map(function (element) {
+        if (person.currentSpouse === element.id) {
+            return `Spouse: ${element.firstName} ${element.lastName}\n`;
         }
-        else if (person.parents[0] === element.id || person.parents[1] === element.id) {
-            let isParent = true;
-            return isParent;
+        else if (person.parents[0]) {
+            if (person.parents[0] === element.id || person.parents[1] === element.id) {
+                return `Parent: ${element.firstName} ${element.lastName}\n`;
+            }
+            else if (person.id !== element.id && element.parents.includes(person.parents[0])) {
+                return `Sibling: ${element.firstName} ${element.lastName}\n`;
+            }
         }
     });
 }
