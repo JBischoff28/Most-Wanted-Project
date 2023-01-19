@@ -31,7 +31,13 @@ function app(people) {
         case "no":
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
-            searchResults = searchByTraits(people);
+            let howManyTraits = oneOrMoreTraits()
+            switch (howManyTraits) {
+                case "one":
+                    searchResults = searchByTrait(people)
+                case "multiple":
+                    searchResults = searchByTraits(people);
+            }
             break;
         case "show all":
             searchResults = displayPeople(people);
@@ -242,4 +248,22 @@ function findPersonDescendants(person, people) {
         foundDescendants = "This person has no descendants."
     }
     return foundDescendants;
+}
+
+function oneOrMoreTraits () {
+    let howManyTraits = promptFor("Would you like to search by one trait, or multiple traits?"
+    ).toLowerCase();
+
+    if (howManyTraits !== "one" || howManyTraits !== "multiple") {
+        return "You input is invalid";
+    }
+    else {
+        switch (howManyTraits) {
+            case "one":
+                return "one";
+            case "multiple":
+                return "multiple";
+        }
+    }
+    return howManyTraits;
 }
