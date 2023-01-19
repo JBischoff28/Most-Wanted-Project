@@ -214,3 +214,16 @@ function displayFamily (person, people) {
     });
     return personOrganizer;
 }
+
+function getDecendants (person, people) {
+
+    let descendants = people.filter(function (element) {
+        if (person.id === element.parents[0] || person.id === element.parents[1]) {
+            return true;
+        }
+        else if (!element.parents[0]) {
+            return false;
+        }
+    });
+    return descendants;
+}
