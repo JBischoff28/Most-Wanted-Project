@@ -227,3 +227,19 @@ function getDecendants (person, people) {
     });
     return descendants;
 }
+
+function findPersonDescendants(person, people) { 
+    
+    let descendants = getDecendants(person, people);
+    let foundDescendants = ``;
+
+    if (descendants.length > 0) {
+        for (let i = 0; i < descendants.length; i++) {
+            foundDescendants += `${descendants[i].firstName} ${descendants[i].lastName}\n`;
+        }
+    }
+    else {
+        foundDescendants = "This person has no descendants."
+    }
+    return foundDescendants;
+}
