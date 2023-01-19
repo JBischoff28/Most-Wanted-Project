@@ -196,3 +196,21 @@ function findPersonFamily (person, people) {
     });
     return displayFamily (person, personFamily);
 }
+
+function displayFamily (person, people) {
+
+    let personOrganizer = people.map(function (element) {
+        if (person.currentSpouse === element.id) {
+            return `Spouse: ${element.firstName} ${element.lastName}\n`; 
+        }
+        else if (person.parents[0]) {
+            if (person.parents[0] === element.id || person.parents[1] === element.id) {
+                return `Parent: ${element.firstName} ${element.lastName}\n`;
+            }
+            else if (person.id !== element.id && element.parents.includes(person.parents[0])) {
+                return `Sibling: ${element.firstName} ${element.lastName}\n`;
+            }
+        }
+    });
+    return personOrganizer;
+}
