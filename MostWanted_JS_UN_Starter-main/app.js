@@ -307,7 +307,7 @@ function getGender (people) {
 }
 
 function getHeight (people) {
-    let whichHeight = parseInt(promptFor("What is the person's height? In inches...", chars))
+    let whichHeight = parseInt(promptFor("What is the person's height? In inches...", chars));
     let searchHeight = people.map(function(element) {
         if (whichHeight === element.height) {
             return `${element.firstName} ${element.lastName}\n`;
@@ -317,11 +317,40 @@ function getHeight (people) {
 }
 
 function getWeight (people) {
-    let whichWeight = parseInt(promptFor("What is the person's weight?", chars))
+    let whichWeight = parseInt(promptFor("What is the person's weight?", chars));
     let searchWeight = people.map(function(element) {
         if (whichWeight === element.weight) {
             return `${element.firstName} ${element.lastName}\n`;
         }
     });
     return searchWeight;
+}
+
+function getEyeColor (people) {
+    let whichEyeColor = promptFor("What is the person's eye color", chars).toLowerCase();
+    let searchEyeColor = people.map(function(element) {
+        if (whichEyeColor === element.eyeColor) {
+            return `${element.firstName} ${element.lastName}\n`;
+        }
+    });
+    return searchEyeColor;
+}
+
+function getOccupation (people) {
+    let whichOccupation = promptFor("What is the person's occupation?", chars).toLowerCase();
+    let searchOccupation = people.map(function(element) {
+        if (whichOccupation === element.occupation) {
+            return `${element.firstName} ${element.lastName}\n`;
+        }
+    });
+    return searchOccupation;
+}
+
+function getMarried (people) {
+    let searchMarried = people.map(function (element) {
+        if (element.currentSpouse) {
+            return `${element.firstName} ${element.lastName}\n`
+        }
+    });
+    return searchMarried;
 }
