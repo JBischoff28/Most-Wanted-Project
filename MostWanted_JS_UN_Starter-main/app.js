@@ -19,7 +19,7 @@ function app(people) {
     // promptFor() is a custom function defined below that helps us prompt and validate input more easily
     // Note that we are chaining the .toLowerCase() immediately after the promptFor returns its value
     let searchType = promptFor(
-        "Do you know the name of the person you are looking for? Enter 'yes' or 'no' or 'show all'",
+        "Do you know the name of the person you are looking for? Enter 'yes' or 'no' or 'show all'\n\n\nType 'quit' to exit this program.",
         yesNo
     ).toLowerCase();
     let searchResults;
@@ -36,15 +36,17 @@ function app(people) {
                 case "one":
                     searchResults = searchByTrait(people)
                     alert(searchResults);
-                    break;
+                    app(people);
                 case "multiple":
                     searchResults = searchByTraits(people);
-                    break;
+                    app(people);
             }
             break;
         case "show all":
             searchResults = displayPeople(people);
             break;
+        case "quit":
+            return;
         default:
             // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
             app(people);
@@ -178,7 +180,7 @@ function promptFor(question, valid) {
  * @returns {Boolean}           The result of our condition evaluation.
  */
 function yesNo(input) {
-    return input.toLowerCase() === "yes" || input.toLowerCase() === "no" || input.toLowerCase() === "show all";
+    return input.toLowerCase() === "yes" || input.toLowerCase() === "no" || input.toLowerCase() === "show all" || input.toLowerCase() === "quit";
 }
 // End of yesNo()
 
@@ -254,7 +256,7 @@ function findPersonDescendants(person, people) {
 }
 
 function oneOrMoreTraits () {
-    let howManyTraits = prompt("Would you like to search by one trait, or multiple traits?"
+    let howManyTraits = promptFor("Would you like to search by one trait, or multiple traits?",chars
     ).toLowerCase();
 
     if (howManyTraits !== "one" && howManyTraits !== "multiple") {
@@ -267,27 +269,27 @@ function oneOrMoreTraits () {
 }
 
 function searchByTrait (people) {
-    let chooseTrait = prompt("Pick a trait to search by: \nGender\nHeight\nWeight\neyeColor\nOccupation\nisMarried\n"
+    let chooseTrait = promptFor("Pick a trait to search by: \nGender\nHeight\nWeight\neyeColor\nOccupation\nisMarried\n", chars
     ).toLowerCase();
     let searchTrait;
 
     switch (chooseTrait) {
-        case "Gender":
+        case "gender":
             searchTrait = getGender(people);
             break;
-        case "Height":
+        case "height":
             searchTrait = getHeight(people);
             break;
-        case "Weight":
+        case "weight":
             searchTrait = getWeight(people);
             break;
-        case "eyeColor":
+        case "eyecolor":
             searchTrait = getEyeColor(people);
             break;
-        case "Occupation":
+        case "occupation":
             searchTrait = getOccupation(people);
             break;
-        case "isMarried":
+        case "ismarried":
             searchTrait = getMarried(people);
             break;
     }
@@ -295,11 +297,31 @@ function searchByTrait (people) {
 }
 
 function getGender (people) {
-    let whichGender = prompt("Male or Female?").toLowerCase();
+    let whichGender = promptFor("Male or Female?", chars).toLowerCase();
     let searchGender = people.map(function(element) {
         if (whichGender === element.gender) {
             return `${element.firstName} ${element.lastName}\n`;
         }
     });
     return searchGender;
+}
+
+function getHeight (people) {
+    let whichHeight = parseInt(promptFor("What is the person's height? In inches...", chars))
+    let searchHeight = people.map(function(element) {
+        if (whichHeight === element.height) {
+            return `${element.firstName} ${element.lastName}\n`;
+        }
+    });
+    return searchHeight;
+}
+
+function getWeight (people) {
+    let whichWeight = parseInt(promptFor("What is the person's weight?", chars))
+    let searchWeight = people.map(function(element) {
+        if (whichWeight === element.weight) {
+            return `${element.firstName} ${element.lastName}\n`;
+        }
+    });
+    return searchWeight;
 }
