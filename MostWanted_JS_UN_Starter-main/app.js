@@ -362,8 +362,9 @@ function searchByTraits (people) {
 
     let selectedTraits;
     for (let i = 0; i < howManyTraits; i++) {
-        selectedTraits += searchByTrait(people);
+        selectedTraits = searchByTrait(people);
     }
+    return selectedTraits;
 }
 
 function maxTraitsValidation (callback, people) {
