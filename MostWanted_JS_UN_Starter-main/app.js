@@ -35,8 +35,11 @@ function app(people) {
             switch (howManyTraits) {
                 case "one":
                     searchResults = searchByTrait(people)
+                    alert(searchResults);
+                    break;
                 case "multiple":
                     searchResults = searchByTraits(people);
+                    break;
             }
             break;
         case "show all":
@@ -251,19 +254,52 @@ function findPersonDescendants(person, people) {
 }
 
 function oneOrMoreTraits () {
-    let howManyTraits = promptFor("Would you like to search by one trait, or multiple traits?"
+    let howManyTraits = prompt("Would you like to search by one trait, or multiple traits?"
     ).toLowerCase();
 
-    if (howManyTraits !== "one" || howManyTraits !== "multiple") {
-        return "You input is invalid";
+    if (howManyTraits !== "one" && howManyTraits !== "multiple") {
+        alert("Your input is invalid.");
+        oneOrMoreTraits();
     }
     else {
-        switch (howManyTraits) {
-            case "one":
-                return "one";
-            case "multiple":
-                return "multiple";
-        }
+        return howManyTraits;
     }
-    return howManyTraits;
+}
+
+function searchByTrait (people) {
+    let chooseTrait = prompt("Pick a trait to search by: \nGender\nHeight\nWeight\neyeColor\nOccupation\nisMarried\n"
+    ).toLowerCase();
+    let searchTrait;
+
+    switch (chooseTrait) {
+        case "Gender":
+            searchTrait = getGender(people);
+            break;
+        case "Height":
+            searchTrait = getHeight(people);
+            break;
+        case "Weight":
+            searchTrait = getWeight(people);
+            break;
+        case "eyeColor":
+            searchTrait = getEyeColor(people);
+            break;
+        case "Occupation":
+            searchTrait = getOccupation(people);
+            break;
+        case "isMarried":
+            searchTrait = getMarried(people);
+            break;
+    }
+    return searchTrait;
+}
+
+function getGender (people) {
+    let whichGender = prompt("Male or Female?").toLowerCase();
+    let searchGender = people.map(function(element) {
+        if (whichGender === element.gender) {
+            return `${element.firstName} ${element.lastName}\n`;
+        }
+    });
+    return searchGender;
 }
