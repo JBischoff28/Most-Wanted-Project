@@ -39,6 +39,7 @@ function app(people) {
                     app(people);
                 case "multiple":
                     searchResults = searchByTraits(people);
+                    alert(searchResults);
                     app(people);
             }
             break;
@@ -353,4 +354,24 @@ function getMarried (people) {
         }
     });
     return searchMarried;
+}
+
+function searchByTraits (people) {
+    let howManyTraits = parseInt(promptFor("How many traits would you like to search by?", chars));
+    maxTraitsValidation(howManyTraits, people);
+
+    let selectedTraits;
+    for (let i = 0; i < howManyTraits; i++) {
+        selectedTraits += searchByTrait(people);
+    }
+}
+
+function maxTraitsValidation (callback, people) {
+    if (callback <= 5 && callback > 0) {
+        return;
+    }
+    else {
+        alert("You must choose between 1-5 traits to search by.")
+        searchByTraits(people);
+    }
 }
